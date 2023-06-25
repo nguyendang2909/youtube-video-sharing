@@ -1,12 +1,6 @@
 import { Home } from '@mui/icons-material';
-import {
-  AppBar,
-  Box,
-  Button,
-  Container,
-  TextField,
-  Toolbar,
-} from '@mui/material';
+import { AppBar, Box, Container, Toolbar, Typography } from '@mui/material';
+import { HeaderRightBox } from 'containers/Box/HeaderRightBox';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 
@@ -17,33 +11,21 @@ export function HomePage() {
         <title>HomePage</title>
         <meta name="description" content="A Boilerplate application homepage" />
       </Helmet>
-      <span className="font-bold">My HomePage</span>
-
       <AppBar position="fixed" color="inherit">
         <Toolbar>
           <Container>
             <Box className="flex">
-              <Box className="flex">
-                <Home />
-                <Box>Home</Box>
+              <Box className="flex items-center justify-center">
+                <Box className="text-4xl flex items-center">
+                  <Home fontSize="inherit" color="info" />
+                </Box>
+                <Box className="flex items-center">
+                  <Typography variant="h4">Funny Movies</Typography>
+                </Box>
               </Box>
               <Box className="grow"></Box>
-              <Box className="flex gap-2 items-center">
-                <Box>
-                  <TextField size="small" placeholder="Email" type="email" />
-                </Box>
-                <Box>
-                  <TextField
-                    size="small"
-                    placeholder="Password"
-                    type="password"
-                  />
-                </Box>
-                <Box>
-                  <Button className="h-10" variant="contained">
-                    Login / Register
-                  </Button>
-                </Box>
+              <Box>
+                <HeaderRightBox />
               </Box>
             </Box>
           </Container>

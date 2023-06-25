@@ -5,32 +5,32 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-// Use consistent styling
 import 'sanitize.css/sanitize.css';
-// Initialize languages
 import './locales/i18n';
+import 'react-toastify/dist/ReactToastify.css';
 
-// Import root app
 import { App } from 'app';
 import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import { PersistGate } from 'redux-persist/integration/react';
 import reportWebVitals from 'reportWebVitals';
-import { configureAppStore } from 'store/configureStore';
+import { persistor, store } from 'store';
 
-const store = configureAppStore();
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
 root.render(
   <Provider store={store}>
-    <HelmetProvider>
-      <React.StrictMode>
+    <PersistGate loading={null} persistor={persistor}>
+      <HelmetProvider>
         <App />
-      </React.StrictMode>
-    </HelmetProvider>
+        <ToastContainer />
+      </HelmetProvider>
+    </PersistGate>
   </Provider>,
 );
 
