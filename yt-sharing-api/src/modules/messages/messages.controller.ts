@@ -1,8 +1,9 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-import { UserId } from '../../commons/decorators/current-user-id.decorator';
+import { CurrentUser } from '../../commons/decorators/current-user-id.decorator';
 import { IsPublicEndpoint } from '../../commons/decorators/is-public.endpoint';
+import { User } from '../users/entities/user.entity';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { MessagesService } from './messages.service';
 
@@ -15,11 +16,11 @@ export class MessagesController {
   @Post()
   public async create(
     @Body() createMessageDto: CreateMessageDto,
-    @UserId() userId: string,
+    @CurrentUser() currentUser: User,
   ) {
     return {
       type: 'sendMessage',
-      data: await this.messagesService.create(createMessageDto, userId),
+      data: await this.messagesService.create(createMessageDto, currentUser),
     };
   }
 
