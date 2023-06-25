@@ -18,6 +18,9 @@ declare global {
       // Auth
       JWT_SECRET_KEY: string;
       HASH_SECRET_KEY: string;
+
+      // Google
+      YT_API_KEY: string;
     }
   }
 }

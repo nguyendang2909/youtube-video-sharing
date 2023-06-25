@@ -25,7 +25,10 @@ export class MessagesController {
 
   @Get()
   @IsPublicEndpoint()
-  findAll() {
-    return this.messagesService.findAll();
+  public async findAll() {
+    return {
+      type: 'ytSharedVideos',
+      data: await this.messagesService.findAll(),
+    };
   }
 }
