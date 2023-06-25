@@ -1,17 +1,16 @@
 import { ThumbUpOffAlt } from '@mui/icons-material';
 import { Box, Container, Typography } from '@mui/material';
+import { useAppSelector } from 'hooks/store.hook';
 import React from 'react';
-import { api } from 'services/api';
 
 export const HomePageContent: React.FC = () => {
-  const { data: ytSharedVideoData } = api.useGetSharedVideosQuery(undefined);
-  console.log(111, ytSharedVideoData);
+  const ytSharedVideos = useAppSelector(state => state.ytSharedVideo.data);
 
   return (
     <Box mt={4}>
       <Container>
         <Box className="flex gap-6 flex-col">
-          {ytSharedVideoData?.data?.map(item => {
+          {ytSharedVideos.map(item => {
             const { id, title, user, videoId, description, likeCount } = item;
 
             return (

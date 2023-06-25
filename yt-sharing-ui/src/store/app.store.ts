@@ -17,7 +17,7 @@ export const appSlice = createSlice({
       state.accessToken = action.payload.accessToken;
     },
     logout: state => {
-      state.accessToken = undefined;
+      state.accessToken = null;
       state.profile = {};
     },
   },
@@ -26,7 +26,7 @@ export const appSlice = createSlice({
       const accessToken = action.payload.data?.accessToken;
       const profile = action.payload.data?.profile;
       if (accessToken && profile) {
-        state.accessToken = action.payload.data?.accessToken;
+        state.accessToken = accessToken;
         state.profile = profile;
       }
     });

@@ -1,8 +1,9 @@
 import { PrivateRoute } from 'containers/Route/PrivateRoute';
-import * as React from 'react';
+import { Socket } from 'containers/Socket';
+import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { api } from 'services/api';
 import { GlobalStyle } from 'styles/global-styles';
 
 import { NotFoundPage } from './components/NotFoundPage';
@@ -10,17 +11,20 @@ import { HomePage } from './pages/HomePage';
 import { ShareYtVideoPage } from './pages/ShareYtVideoPage';
 
 export function App() {
-  const { i18n } = useTranslation();
+  api.useGetSharedVideosQuery(undefined, {
+    refetchOnMountOrArgChange: false,
+    refetchOnFocus: false,
+    refetchOnReconnect: false,
+  });
+
   return (
     <BrowserRouter>
       <Helmet
-        titleTemplate="%s - React Boilerplate"
-        defaultTitle="React Boilerplate"
-        htmlAttributes={{ lang: i18n.language }}
+        titleTemplate="%s - Youtube share video app"
+        defaultTitle="Youtube video share app"
       >
-        <meta name="description" content="A React Boilerplate application" />
+        <meta name="description" content="Youtube share video app" />
       </Helmet>
-
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route
@@ -34,6 +38,7 @@ export function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <GlobalStyle />
+      <Socket />
     </BrowserRouter>
   );
 }
