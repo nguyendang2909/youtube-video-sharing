@@ -1,19 +1,13 @@
-/**
- *
- * App
- *
- * This component is the skeleton around the actual pages, and should only
- * contain code that should be seen on all pages. (e.g. navigation bar)
- */
-
+import { PrivateRoute } from 'containers/Route/PrivateRoute';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { GlobalStyle } from 'styles/global-styles';
 
-import { NotFoundPage } from './components/NotFoundPage/Loadable';
-import { HomePage } from './pages/HomePage/Loadable';
+import { NotFoundPage } from './components/NotFoundPage';
+import { HomePage } from './pages/HomePage';
+import { ShareYtVideoPage } from './pages/ShareYtVideoPage';
 
 export function App() {
   const { i18n } = useTranslation();
@@ -29,6 +23,14 @@ export function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route
+          path="/share"
+          element={
+            <PrivateRoute>
+              <ShareYtVideoPage />
+            </PrivateRoute>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <GlobalStyle />

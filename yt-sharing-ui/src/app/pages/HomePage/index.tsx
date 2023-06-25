@@ -8,7 +8,7 @@ export function HomePage() {
     <>
       <Helmet>
         <title>HomePage</title>
-        <meta name="description" content="A Boilerplate application homepage" />
+        <meta name="description" content="Homepage" />
       </Helmet>
       <PageHeader />
       <HomePageContent />

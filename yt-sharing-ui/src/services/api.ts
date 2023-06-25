@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import queryString from 'query-string';
 import { appActions } from 'store/app.store';
 import { FetchData } from 'types/api.type';
-import { User } from 'types/entities.type';
+import { User, YtSharedVideo } from 'types/entities.type';
 import { RootState } from 'types/store.type';
 
 export const API_URL = process.env.REACT_APP_API_URL;
@@ -46,7 +46,7 @@ export const api = createApi({
       }),
     }),
     shareYoutubeVideo: builder.mutation<
-      FetchData<{ a: string }>,
+      FetchData<YtSharedVideo>,
       { url: string }
     >({
       query: body => ({
@@ -55,7 +55,7 @@ export const api = createApi({
         body,
       }),
     }),
-    getSharedVideos: builder.query<FetchData<{ a: 1 }>, undefined>({
+    getSharedVideos: builder.query<FetchData<YtSharedVideo[]>, undefined>({
       query: () => ({
         url: '/messages',
         method: 'GET',
