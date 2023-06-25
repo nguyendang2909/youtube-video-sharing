@@ -1,28 +1,38 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import queryString from 'query-string';
+import { appActions } from 'store/app.store';
 import { FetchData } from 'types/api.type';
 import { User } from 'types/entities.type';
 import { RootState } from 'types/store.type';
 
 export const API_URL = process.env.REACT_APP_API_URL;
 
+const baseQuery = fetchBaseQuery({
+  paramsSerializer: (params: Record<string, any>) => {
+    return queryString.stringify(params);
+  },
+  baseUrl: API_URL,
+  prepareHeaders: (headers, { getState }) => {
+    const accessToken = (getState() as RootState)?.app.accessToken;
+
+    if (accessToken) {
+      headers.set('Authorization', `Bearer ${accessToken}`);
+    }
+
+    return headers;
+  },
+});
+
 export const api = createApi({
   reducerPath: 'api',
-  baseQuery: fetchBaseQuery({
-    baseUrl: API_URL,
-    paramsSerializer: (params: Record<string, any>) => {
-      return queryString.stringify(params);
-    },
-    prepareHeaders: (headers, { getState }) => {
-      const accessToken = (getState() as RootState)?.app.accessToken;
+  baseQuery: async (args, api, extraOptions) => {
+    const result = await baseQuery(args, api, extraOptions);
+    if (result.error && result.error.status === 401) {
+      api.dispatch(appActions.logout());
+    }
 
-      if (accessToken) {
-        headers.set('Authorization', `Bearer ${accessToken}`);
-      }
-
-      return headers;
-    },
-  }),
+    return result;
+  },
   tagTypes: ['MyProfile', 'UNAUTHORIZED', 'UNKNOWN_ERROR'],
   endpoints: builder => ({
     signIn: builder.mutation<
@@ -35,26 +45,22 @@ export const api = createApi({
         body,
       }),
     }),
-    // loginByGoogle: builder.mutation<
-    //   ApiResponse.Logged,
-    //   ApiRequest.LoginByGoogle
-    // >({
-    //   query: body => ({
-    //     url: API_URL.loginByGoogle,
-    //     method: 'POST',
-    //     body,
-    //   }),
-    // }),
-    // loginByFacebook: builder.mutation<
-    //   ApiResponse.Logged,
-    //   ApiRequest.LoginByFacebook
-    // >({
-    //   query: body => ({
-    //     url: API_URL.loginByFacebook,
-    //     method: 'POST',
-    //     body,
-    //   }),
-    // }),
+    shareYoutubeVideo: builder.mutation<
+      FetchData<{ a: string }>,
+      { url: string }
+    >({
+      query: body => ({
+        url: '/messages',
+        method: 'POST',
+        body,
+      }),
+    }),
+    getSharedVideos: builder.query<FetchData<{ a: 1 }>, undefined>({
+      query: () => ({
+        url: '/messages',
+        method: 'GET',
+      }),
+    }),
     // loginByPhoneNumber: builder.mutation<
     //   ApiResponse.Logged,
     //   ApiRequest.LoginByPhoneNumber

@@ -1,4 +1,4 @@
-import { SignInForm } from 'containers/Form/SignInForm';
+import { SignInBox } from 'containers/Form/SignInBox';
 import { useAppSelector } from 'hooks/store.hook';
 import React from 'react';
 
@@ -11,5 +11,5 @@ export const HeaderRightBox: React.FC = () => {
     return <UserBox />;
   }
 
-  return <SignInForm />;
+  return <SignInBox />;
 };
