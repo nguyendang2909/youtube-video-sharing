@@ -6,7 +6,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { api } from 'services/api';
 import { GlobalStyle } from 'styles/global-styles';
 
-import { NotFoundPage } from './components/NotFoundPage';
 import { HomePage } from './pages/HomePage';
 import { ShareYtVideoPage } from './pages/ShareYtVideoPage';
 
@@ -35,7 +34,7 @@ export function App() {
             </PrivateRoute>
           }
         />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path="*" element={<HomePage />} />
       </Routes>
       <GlobalStyle />
       <Socket />

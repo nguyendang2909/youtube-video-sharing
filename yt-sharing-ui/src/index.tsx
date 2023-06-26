@@ -8,14 +8,13 @@ import '@fontsource/roboto/700.css';
 import 'sanitize.css/sanitize.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { App } from 'app';
+import { App } from 'App';
 import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
-import reportWebVitals from 'reportWebVitals';
 import { persistor, store } from 'store';
 
 const root = ReactDOM.createRoot(
@@ -32,5 +31,3 @@ root.render(
     </PersistGate>
   </Provider>,
 );
-
-reportWebVitals();
