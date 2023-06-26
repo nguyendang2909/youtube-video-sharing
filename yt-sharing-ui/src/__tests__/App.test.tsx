@@ -41,6 +41,46 @@ describe('#App', () => {
     socketIOClient.mockReturnValue(socket);
   });
 
+  it('Should see shared videos without login', async () => {
+    server.use(
+      rest.get('/messages', (req, res, ctx) => {
+        return res(ctx.json(mockMessages));
+      }),
+    );
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation(query => ({
+        matches: !(query === '(max-width: 599px)'),
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+      })),
+    });
+
+    render(
+      <Provider store={store}>
+        <HelmetProvider>
+          <App />
+        </HelmetProvider>
+      </Provider>,
+    );
+
+    expect((await screen.findAllByTestId('videoBox')).length).toEqual(
+      mockMessages.data.length,
+    );
+    expect((await screen.findAllByTestId('videoTitle'))[0].textContent).toEqual(
+      mockMessages.data[0].title,
+    );
+    expect((await screen.findAllByTestId('videoTitle'))[1].textContent).toEqual(
+      mockMessages.data[1].title,
+    );
+    expect((await screen.findAllByTestId('sharedUser'))[0].textContent).toEqual(
+      `Shared by: ${mockMessages.data[0].user.email}`,
+    );
+    expect((await screen.findAllByTestId('sharedUser'))[1].textContent).toEqual(
+      `Shared by: ${mockMessages.data[1].user.email}`,
+    );
+  });
+
   it('Should login successfully and share video successfully', async () => {
     server.use(
       rest.post('/auth/sign-in', (req, res, ctx) => {

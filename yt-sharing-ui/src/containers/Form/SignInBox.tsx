@@ -139,7 +139,6 @@ export const SignInBox: React.FC = () => {
             <Box>
               <TextField
                 inputProps={{ 'data-testid': 'emailInputDesktop' }}
-                autoFocus
                 sx={{ maxWidth: '200px' }}
                 error={!!formik.errors.email}
                 id="email"

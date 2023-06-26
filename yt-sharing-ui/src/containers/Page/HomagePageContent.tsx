@@ -14,7 +14,7 @@ export const HomePageContent: React.FC = () => {
             const { id, title, user, videoId, description, likeCount } = item;
 
             return (
-              <Box key={id}>
+              <Box key={id} data-testid="videoBox">
                 <Box className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   <Box>
                     <Box
@@ -34,9 +34,13 @@ export const HomePageContent: React.FC = () => {
                   <Box>
                     <Box px={2}>
                       <Box>
-                        <Typography color="red">{title}</Typography>
+                        <Typography data-testid="videoTitle" color="red">
+                          {title}
+                        </Typography>
                       </Box>
-                      <Box>Shared by: {user?.email}</Box>
+                      <Box data-testid="sharedUser">
+                        Shared by: {user?.email}
+                      </Box>
                       <Box>
                         <ThumbUpOffAlt /> {likeCount}
                       </Box>

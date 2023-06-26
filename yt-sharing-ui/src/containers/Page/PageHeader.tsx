@@ -18,7 +18,7 @@ export const PageHeader: React.FC = () => {
                   <Home fontSize="inherit" color="info" />
                 </Box>
                 <Box className="flex items-center">
-                  <Typography variant="h4">Funny Movies</Typography>
+                  <Typography variant="h5">Funny Movies</Typography>
                 </Box>
               </Box>
               <Box className="grow"></Box>
