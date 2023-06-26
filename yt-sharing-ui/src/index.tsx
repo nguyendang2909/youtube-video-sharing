@@ -6,7 +6,6 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import 'sanitize.css/sanitize.css';
-import './locales/i18n';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { App } from 'app';
@@ -34,14 +33,4 @@ root.render(
   </Provider>,
 );
 
-// Hot reloadable translation json files
-if (module.hot) {
-  module.hot.accept(['./locales/i18n'], () => {
-    // No need to render the App again because i18next works with the hooks
-  });
-}
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

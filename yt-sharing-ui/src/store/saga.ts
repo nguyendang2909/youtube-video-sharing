@@ -24,12 +24,15 @@ function createSocketChannel() {
     socket.on('message', (msg: YtSharedVideo) => {
       emit({ type: 'message', data: msg });
     });
-    const unsubscribe = () => {
-      socket.off('message');
-    };
     socket.on('disconnect', () => {
       console.log('socket disconnected', socket.disconnected);
     });
+    const unsubscribe = () => {
+      socket.off('message');
+      socket.off('disconnect');
+      socket.off('connect');
+    };
+
     return unsubscribe;
   });
 }
