@@ -146,7 +146,9 @@ export const SignInBox: React.FC = () => {
                 size="small"
                 placeholder="Email"
                 type="email"
-                helperText={formik.errors.email || ' '}
+                helperText={
+                  <Box position="absolute">{formik.errors.email || ' '}</Box>
+                }
               />
             </Box>
             <Box>
@@ -159,7 +161,9 @@ export const SignInBox: React.FC = () => {
                 size="small"
                 placeholder="Password"
                 type="password"
-                helperText={formik.errors.password || ' '}
+                helperText={
+                  <Box position="absolute">{formik.errors.password || ' '}</Box>
+                }
               />
             </Box>
             <Box>
