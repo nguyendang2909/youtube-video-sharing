@@ -1,3 +1,5 @@
+import { User } from '../users/entities/user.entity';
+
 export type AuthJwtPayload = {
   sub: string;
   id: string;
@@ -18,6 +20,4 @@ export type CreateUserPayload = {
   phoneNumber?: string;
 };
 
-export type SignInData = {
-  accessToken: string;
-};
+export type SignInData = { accessToken: string; profile: Partial<User> };

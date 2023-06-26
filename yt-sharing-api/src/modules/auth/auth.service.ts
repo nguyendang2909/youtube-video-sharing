@@ -4,6 +4,7 @@ import _ from 'lodash';
 import { EncryptionsUtil } from '../encryptions/encryptions.util';
 import { User } from '../users/entities/user.entity';
 import { UserEntity } from '../users/users-entity.service';
+import { SignInData } from './auth.type';
 import { SignInDto } from './dto/login.dto';
 
 @Injectable()
@@ -13,7 +14,7 @@ export class AuthService {
     private readonly userEntity: UserEntity,
   ) {}
 
-  public async login(payload: SignInDto) {
+  public async signIn(payload: SignInDto): Promise<SignInData> {
     const { email, password } = payload;
     let user = await this.userEntity.findOne({
       where: {
@@ -28,7 +29,7 @@ export class AuthService {
       if (!isMatchPassword) {
         throw new UnauthorizedException({
           errorCode: 'PASSWORD_IS_NOT_CORRECT',
-          message: 'Phone number or password is not correct!',
+          message: 'Password is not correct!',
         });
       }
     } else {

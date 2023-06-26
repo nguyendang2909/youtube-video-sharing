@@ -55,12 +55,13 @@ export const SignInBox: React.FC = () => {
         }
         toast.info('Sign in successfully');
       } catch (err) {
+        /* istanbul ignore next */
         setError(err);
       }
     },
   });
   return (
-    <>
+    <Box data-testid="signInBox">
       <Hidden mdUp>
         <IconButton onClick={handleOpenDialogSignIn} color="primary">
           <Login />
@@ -90,6 +91,7 @@ export const SignInBox: React.FC = () => {
             <form noValidate onSubmit={formik.handleSubmit}>
               <Box>
                 <TextField
+                  inputProps={{ 'data-testid': 'emailInputMobile' }}
                   autoFocus
                   fullWidth
                   error={!!formik.errors.email}
@@ -103,6 +105,7 @@ export const SignInBox: React.FC = () => {
               </Box>
               <Box>
                 <TextField
+                  inputProps={{ 'data-testid': 'passwordInputMobile' }}
                   fullWidth
                   error={!!formik.errors.password}
                   id="password"
@@ -115,11 +118,13 @@ export const SignInBox: React.FC = () => {
               </Box>
               <Box>
                 <LoadingButton
+                  data-testid="signInButtonMobile"
                   fullWidth
                   loading={formik.isSubmitting}
                   type="submit"
                   className="h-10"
                   variant="contained"
+                  id="signIn"
                 >
                   Login / Register
                 </LoadingButton>
@@ -133,6 +138,7 @@ export const SignInBox: React.FC = () => {
           <Box className="flex gap-2 items-start">
             <Box>
               <TextField
+                inputProps={{ 'data-testid': 'emailInputDesktop' }}
                 autoFocus
                 sx={{ maxWidth: '200px' }}
                 error={!!formik.errors.email}
@@ -146,6 +152,7 @@ export const SignInBox: React.FC = () => {
             </Box>
             <Box>
               <TextField
+                inputProps={{ 'data-testid': 'passwordInputDesktop' }}
                 sx={{ maxWidth: '200px' }}
                 error={!!formik.errors.password}
                 id="password"
@@ -158,6 +165,7 @@ export const SignInBox: React.FC = () => {
             </Box>
             <Box>
               <LoadingButton
+                data-testid="signInButtonDesktop"
                 loading={formik.isSubmitting}
                 type="submit"
                 className="h-10"
@@ -169,6 +177,6 @@ export const SignInBox: React.FC = () => {
           </Box>
         </form>
       </Hidden>
-    </>
+    </Box>
   );
 };

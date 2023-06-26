@@ -19,7 +19,7 @@ export class MessagesController {
     @CurrentUser() currentUser: User,
   ) {
     return {
-      type: 'sendMessage',
+      type: 'createYtSharedVideo',
       data: await this.messagesService.create(createMessageDto, currentUser),
     };
   }

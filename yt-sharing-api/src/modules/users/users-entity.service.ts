@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOneOptions, Repository } from 'typeorm';
 
@@ -16,14 +16,5 @@ export class UserEntity {
 
   public async findOne(options: FindOneOptions<User>) {
     return await this.userRepository.findOne(options);
-  }
-
-  public async findOneOrFail(options: FindOneOptions<User>) {
-    const findResult = await this.findOne(options);
-    if (!findResult) {
-      throw new NotFoundException('User doesnot exist!');
-    }
-
-    return findResult;
   }
 }

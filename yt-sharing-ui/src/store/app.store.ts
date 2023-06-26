@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { api } from 'services/api';
+import { User } from 'types/entities.type';
 import { PersistedAppState } from 'types/store.type';
 
 const initialState: PersistedAppState = {
@@ -20,6 +21,9 @@ export const appSlice = createSlice({
       state.accessToken = null;
       state.profile = {};
     },
+    updateProfile: (state, action: PayloadAction<User>) => {
+      state.profile = action.payload;
+    },
   },
   extraReducers: builder => {
     builder.addMatcher(api.endpoints.signIn.matchFulfilled, (state, action) => {
@@ -30,22 +34,6 @@ export const appSlice = createSlice({
         state.profile = profile;
       }
     });
-    // builder.addMatcher(
-    //   api.endpoints.loginByPhoneNumber.matchFulfilled,
-    //   (state, action) => {
-    //     const accessToken = action.payload.data?.accessToken;
-    //     if (accessToken) {
-    //       state.accessToken = action.payload.data?.accessToken;
-    //       state.isLogged = true;
-    //     }
-    //   },
-    // );
-    // builder.addMatcher(
-    //   api.endpoints.getMyProfile.matchFulfilled,
-    //   (state, action) => {
-    //     state.isLogged = true;
-    //   },
-    // );
   },
 });
 

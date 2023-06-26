@@ -13,10 +13,10 @@ export class AuthController {
 
   @Post('/sign-in')
   @IsPublicEndpoint()
-  private async signIn(@Body() payload: SignInDto) {
+  public async signIn(@Body() payload: SignInDto) {
     return {
-      type: 'login',
-      data: await this.authService.login(payload),
+      type: 'signIn',
+      data: await this.authService.signIn(payload),
     };
   }
 }

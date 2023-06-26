@@ -30,7 +30,6 @@ export class MessagesService {
         throw new BadRequestException('Check your link or your connection!');
       });
     const videoInfo = data?.items[0];
-
     const createResult = await this.messageEntity.save({
       url: payload.url,
       user: new User({ id: currentUser.id, email: currentUser.email }),
@@ -43,7 +42,6 @@ export class MessagesService {
       commentCount: +(videoInfo.statistics?.commentCount || 0),
       description: videoInfo.snippet.description,
     });
-
     this.chatGateway.server.emit('message', createResult);
 
     return createResult;

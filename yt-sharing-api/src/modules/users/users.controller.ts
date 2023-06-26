@@ -11,7 +11,7 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Get('/profile')
-  private async getProfile(@UserId() userId: string) {
+  public async getProfile(@UserId() userId: string) {
     return {
       type: 'profile',
       data: await this.usersService.getProfile(userId),

@@ -30,34 +30,21 @@ describe('UsersController', () => {
 
   describe('#getProfile', () => {
     it('Should get profile successfully', async () => {
-      const mockCurrentUserId = '12345';
-
+      const userId = 'c3231a54-b18a-42ce-9606-3a624b32e9a8';
       const mockReturnGetProfile = createMock<User>({
-        id: 'c3231a54-b18a-42ce-9606-3a624b32e9a8',
-        createdAt: '2023-05-02T09:00:49.614Z',
-        updatedAt: '2023-05-02T09:00:49.614Z',
-        deletedAt: null,
-        password:
-          '$2b$10$zhlpdoc5oVYXfbpZTV8uy.ihZW4XfdPlizyKKPhWQu5P09t1wPvA6',
-        phoneNumber: '+84971016191',
-        firstName: 'Nguyen Dang',
-        lastName: 'Quynh',
-        email: null,
-        birthdate: null,
-        createdBy: null,
-        updatedBy: null,
+        id: userId,
+        email: 'quynh@gmail.com',
       });
 
       jest.spyOn(service, 'getProfile').mockResolvedValue(mockReturnGetProfile);
 
-      const result = controller['getProfile'](mockCurrentUserId);
+      const result = controller.getProfile(userId);
 
       await expect(result).resolves.toEqual({
         type: 'profile',
-        data: mockCurrentUserId,
+        data: mockReturnGetProfile,
       });
-
-      expect(service.getProfile).toHaveBeenCalledWith(mockCurrentUserId);
+      expect(service.getProfile).toHaveBeenCalledWith(userId);
     });
   });
 });

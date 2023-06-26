@@ -26,21 +26,9 @@ export class HttpExceptionFilter implements ExceptionFilter {
       exc instanceof HttpException
         ? exc
         : new InternalServerErrorException(exc.message);
-
     const status = error.getStatus();
     const response = error.getResponse();
     const json = typeof response === 'string' ? { error: response } : response;
-    if (
-      process.env.NODE_ENV === 'test' ||
-      process.env.NODE_ENV === 'development'
-    ) {
-      // tslint:disable-next-line: no-console
-      console.log('HttpExceptionFilter');
-      // tslint:disable-next-line: no-console
-      console.log('exc', exc);
-      // tslint:disable-next-line: no-console
-      console.log('error', error);
-    }
 
     return { status, json };
   }

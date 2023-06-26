@@ -19,6 +19,7 @@ export const LogoutButton: React.FC = () => {
       </Hidden>
       <Hidden mdDown>
         <Button
+          data-testid="logoutButtonDesktop"
           variant="outlined"
           onClick={handleLogout}
           startIcon={<LogoutRounded />}

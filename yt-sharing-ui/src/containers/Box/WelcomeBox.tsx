@@ -8,7 +8,7 @@ export const WelcomeBox: React.FC = () => {
   return (
     <Hidden mdDown>
       <Box>
-        <Typography>Welcome {email}</Typography>
+        <Typography data-testid="welcomeText">Welcome {email}</Typography>
       </Box>
     </Hidden>
   );

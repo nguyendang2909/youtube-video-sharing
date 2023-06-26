@@ -1,28 +1,28 @@
 import { createMock } from '@golevelup/ts-jest';
 import { Test, TestingModule } from '@nestjs/testing';
-import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import _ from 'lodash';
 
 import { User } from './entities/user.entity';
 import { UsersService } from './users.service';
+import { UserEntity } from './users-entity.service';
 
 describe('UsersService', () => {
   let service: UsersService;
-  let userRepository: Repository<User>;
+  let userEntity: UserEntity;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
         {
-          provide: getRepositoryToken(User),
+          provide: UserEntity,
           useValue: createMock(),
         },
       ],
     }).compile();
 
     service = module.get<UsersService>(UsersService);
-    userRepository = module.get<Repository<User>>(getRepositoryToken(User));
+    userEntity = module.get<UserEntity>(UserEntity);
   });
 
   it('should be defined', () => {
@@ -30,29 +30,24 @@ describe('UsersService', () => {
   });
 
   describe('#getProfile', () => {
-  //   it('Should get profile successfully', async () => {
-  //     const mockUserId = '1234565';
+    it('Should get profile successfully', async () => {
+      const mockUserId = '1234565';
+      const mockProfile = createMock<User>({
+        id: mockUserId,
+        password: 'abc-123',
+      });
 
-  //     const mockProfile = {
-  //       id: mockUserId,
-  //     };
+      jest.spyOn(userEntity, 'findOne').mockResolvedValue(mockProfile);
 
-  //     const createQueryBuilder: any = {
-  //       andWhere: jest.fn().mockImplementation(() => {
-  //         return createQueryBuilder;
-  //       }),
-  //       getOne: jest.fn().mockImplementation(() => {
-  //         return mockProfile;
-  //       }),
-  //     };
+      const result = service.getProfile(mockUserId);
 
-  //     jest
-  //       .spyOn(userRepository, 'createQueryBuilder')
-  //       .mockImplementation(() => createQueryBuilder);
-
-  //     const result = service.getProfile(mockUserId);
-
-  //     await expect(result).resolves.toEqual(mockProfile);
-  //   });
-  // });
+      await expect(result).resolves.toEqual(_.omit(mockProfile, ['password']));
+      expect(userEntity.findOne).toHaveBeenCalledTimes(1);
+      expect(userEntity.findOne).toHaveBeenCalledWith({
+        where: {
+          id: mockUserId,
+        },
+      });
+    });
+  });
 });

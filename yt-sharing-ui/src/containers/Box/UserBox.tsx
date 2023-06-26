@@ -8,7 +8,7 @@ import { WelcomeBox } from './WelcomeBox';
 export const UserBox: React.FC = () => {
   return (
     <>
-      <Box className="flex items-center gap-3">
+      <Box data-testid="userBox" className="flex items-center gap-3">
         <Box>
           <WelcomeBox />
         </Box>

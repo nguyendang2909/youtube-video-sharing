@@ -50,6 +50,7 @@ export const ShareYtVideoPageContent: React.FC = () => {
             <CardContent>
               <form noValidate onSubmit={formik.handleSubmit}>
                 <TextField
+                  inputProps={{ 'data-testid': 'youtubeVideoUrlInput' }}
                   error={!!formik.errors.url}
                   {...formik.getFieldProps('url')}
                   autoFocus
@@ -62,7 +63,12 @@ export const ShareYtVideoPageContent: React.FC = () => {
                   helperText={formik.errors.url || ' '}
                 />
 
-                <Button type="submit" variant="contained" fullWidth>
+                <Button
+                  data-testid="shareYtVideoButton"
+                  type="submit"
+                  variant="contained"
+                  fullWidth
+                >
                   Share
                 </Button>
               </form>

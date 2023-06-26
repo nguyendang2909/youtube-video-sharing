@@ -7,7 +7,7 @@ export function HomePage() {
   return (
     <>
       <Helmet>
-        <title>HomePage</title>
+        <title>Home</title>
         <meta name="description" content="Homepage" />
       </Helmet>
       <PageHeader />

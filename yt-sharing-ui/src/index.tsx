@@ -13,7 +13,6 @@ import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from 'store';
 
@@ -26,7 +25,6 @@ root.render(
     <PersistGate loading={null} persistor={persistor}>
       <HelmetProvider>
         <App />
-        <ToastContainer />
       </HelmetProvider>
     </PersistGate>
   </Provider>,
