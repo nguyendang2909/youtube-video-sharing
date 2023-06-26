@@ -45,7 +45,7 @@ export const SignInBox: React.FC = () => {
     },
     validationSchema: Yup.object().shape({
       email: Yup.string().email().required(),
-      password: Yup.string().min(8).required(),
+      password: Yup.string().min(8, "At least 8 characters").required(),
     }),
     onSubmit: async values => {
       try {

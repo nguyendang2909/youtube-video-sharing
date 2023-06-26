@@ -1,0 +1,39 @@
+version: '3.8'
+services:
+  postgresql:
+    container_name: yts-postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: 'yts'
+      POSTGRES_PASSWORD: '123456'
+      POSTGRES_DB: 'yts'
+    ports:
+      - '5432:5432'
+  api:
+    container_name: yts-api
+    depends_on:
+      - postgresql
+    build:
+      context: .
+      dockerfile: Dockerfile-api
+    restart: always
+    ports:
+      - '8330:8330'
+  ui:
+    container_name: yts-ui
+    depends_on:
+      - postgresql
+    build:
+      context: .
+      dockerfile: Dockerfile-ui
+    restart: always
+    ports:
+      - '3000:3000'
+volumes:
+  postgresql:
+    driver: local
+  api:
+    driver: local
+  ui:
+    driver: local
