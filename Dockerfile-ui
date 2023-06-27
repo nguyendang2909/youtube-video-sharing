@@ -3,7 +3,7 @@ FROM node:18
 # Create app directory
 WORKDIR /usr/src/app
 
-COPY ./yt-sharing-ui ./
+COPY ./-ui ./
 
 RUN yarn \
     && yarn build
