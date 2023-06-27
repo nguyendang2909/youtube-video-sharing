@@ -21,7 +21,7 @@ http://localhost:3000
 ## Test
 UI
 ```
-cd api
+cd ui
 yarn install
 yarn test
 yarn test:coverage
