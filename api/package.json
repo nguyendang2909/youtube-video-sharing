@@ -24,7 +24,6 @@
     "migrate:redo": "yarn migrate:rollback && yarn migrate:latest",
     "migrate:make": "knex --knexfile ./knexfile.ts migrate:make -x ts",
     "lint:fix": "eslint --fix --ext ts .",
-    "prepare": "husky install"
   },
   "dependencies": {
     "@joi/date": "^2.1.0",
@@ -44,7 +43,6 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "helmet": "^6.1.5",
-    "husky": "^8.0.3",
     "joi": "^17.9.2",
     "knex": "^2.4.2",
     "moment": "^2.29.4",
