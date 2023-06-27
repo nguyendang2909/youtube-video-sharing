@@ -33,5 +33,3 @@ yarn install
 yarn test
 yarn test:coverage
 ```
-
-## Test
