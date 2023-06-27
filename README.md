@@ -4,7 +4,6 @@ Youtube Video Sharing App
 ## Prerequisites
 docker
 docker-compose
-Make sure you have docker and docker-compose installed
 Make sure ports 3000, 8330, 5432 are free
 
 ## Installation & Configuration
