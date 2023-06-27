@@ -9,12 +9,12 @@ Make sure ports 3000, 8330, 5432 are free
 
 ## Installation & Configuration
 ```
-docker-compose -f deployment.yml up -d 
+docker-compose -f deployment.yml up -d
 ```
 
 ## Running the Application
 ```
-docker-compose -f deployment.yml up -d 
+docker-compose -f deployment.yml up -d
 ```
 
 http://localhost:3000
