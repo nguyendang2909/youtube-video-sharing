@@ -126,6 +126,11 @@ describe('#App', () => {
     const signInButtonElement = await screen.findByTestId(
       'signInButtonDesktop',
     );
+
+    expect((await screen.findAllByTestId('videoBox')).length).toEqual(
+      mockMessages.data.length,
+    );
+
     act(() => {
       fireEvent.change(inputEmailElement, {
         target: {
@@ -141,8 +146,10 @@ describe('#App', () => {
     });
 
     await waitFor(() => {
+      expect(screen.getByText('Sign in successfully')).toBeInTheDocument();
       expect(store.getState().app.accessToken).toBe('access-token');
       expect(screen.getByTestId('shareLinkDesktop')).toBeInTheDocument();
+      expect(screen.getByTestId('welcomeText')).toBeInTheDocument();
     });
 
     await userEvent.click(await screen.findByTestId('shareLinkDesktop'));
