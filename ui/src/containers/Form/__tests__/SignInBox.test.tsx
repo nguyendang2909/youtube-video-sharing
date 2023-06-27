@@ -9,8 +9,9 @@ import {
 } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import { store as appStore } from '../../../store';
+import { persistor, store as appStore } from '../../../store';
 import { SignInBox } from '../SignInBox';
 
 describe('#SignInBox', () => {
@@ -39,7 +40,9 @@ describe('#SignInBox', () => {
     });
     render(
       <Provider store={store}>
-        <SignInBox />
+        <PersistGate loading={null} persistor={persistor}>
+          <SignInBox />
+        </PersistGate>
       </Provider>,
     );
 
@@ -59,7 +62,9 @@ describe('#SignInBox', () => {
     });
     render(
       <Provider store={store}>
-        <SignInBox />
+        <PersistGate loading={null} persistor={persistor}>
+          <SignInBox />
+        </PersistGate>
       </Provider>,
     );
     const inputEmailElement = await screen.findByTestId('emailInputDesktop');
@@ -98,7 +103,9 @@ describe('#SignInBox', () => {
     });
     render(
       <Provider store={store}>
-        <SignInBox />
+        <PersistGate loading={null} persistor={persistor}>
+          <SignInBox />
+        </PersistGate>
       </Provider>,
     );
     const inputEmailElement = await screen.findByTestId('emailInputDesktop');

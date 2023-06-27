@@ -7,10 +7,11 @@ import { rest } from 'msw';
 import React from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import socketIOClient from 'socket.io-client';
 import MockedSocket from 'socket.io-mock';
 
-import { store as appStore } from '../store';
+import { persistor, store as appStore } from '../store';
 import { mockMessages, mockShareVideo } from '../tests/config/mockMessages';
 import { server } from '../tests/config/server';
 
@@ -52,9 +53,11 @@ describe('#App', () => {
 
     render(
       <Provider store={store}>
-        <HelmetProvider>
-          <App />
-        </HelmetProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <HelmetProvider>
+            <App />
+          </HelmetProvider>
+        </PersistGate>
       </Provider>,
     );
 
@@ -109,9 +112,11 @@ describe('#App', () => {
 
     render(
       <Provider store={store}>
-        <HelmetProvider>
-          <App />
-        </HelmetProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <HelmetProvider>
+            <App />
+          </HelmetProvider>
+        </PersistGate>
       </Provider>,
     );
 

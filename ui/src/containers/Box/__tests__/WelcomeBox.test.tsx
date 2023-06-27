@@ -4,9 +4,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { appActions } from 'store/app.store';
 
-import { store as appStore } from '../../../store';
+import { persistor, store as appStore } from '../../../store';
 import { WelcomeBox } from '../WelcomeBox';
 
 describe('#WelcomeBox', () => {
@@ -35,7 +36,9 @@ describe('#WelcomeBox', () => {
     });
     render(
       <Provider store={store}>
-        <WelcomeBox />
+        <PersistGate loading={null} persistor={persistor}>
+          <WelcomeBox />
+        </PersistGate>
       </Provider>,
     );
     act(() => {

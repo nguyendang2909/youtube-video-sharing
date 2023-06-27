@@ -3,8 +3,9 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import { store as appStore } from '../../../store';
+import { persistor, store as appStore } from '../../../store';
 import { HomePageContent } from '../HomePageContent';
 
 describe('#HomePageContent', () => {
@@ -25,7 +26,9 @@ describe('#HomePageContent', () => {
   it('Should see shared videos without login', async () => {
     render(
       <Provider store={store}>
-        <HomePageContent />
+        <PersistGate loading={null} persistor={persistor}>
+          <HomePageContent />
+        </PersistGate>
       </Provider>,
     );
 

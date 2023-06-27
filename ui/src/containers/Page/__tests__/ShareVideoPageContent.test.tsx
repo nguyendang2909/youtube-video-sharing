@@ -10,8 +10,9 @@ import {
 import React from 'react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import { store as appStore } from '../../../store';
+import { persistor, store as appStore } from '../../../store';
 import { ShareYtVideoPageContent } from '../ShareVideoPageContent';
 
 describe('#SharedVideoPageContent', () => {
@@ -32,9 +33,11 @@ describe('#SharedVideoPageContent', () => {
   it('Should see shared videos without login', async () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
-          <ShareYtVideoPageContent />
-        </BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <ShareYtVideoPageContent />
+          </BrowserRouter>
+        </PersistGate>
       </Provider>,
     );
 
@@ -45,9 +48,11 @@ describe('#SharedVideoPageContent', () => {
   it('Should show error when submit without input url', async () => {
     render(
       <Provider store={store}>
-        <BrowserRouter>
-          <ShareYtVideoPageContent />
-        </BrowserRouter>
+        <PersistGate loading={null} persistor={persistor}>
+          <BrowserRouter>
+            <ShareYtVideoPageContent />
+          </BrowserRouter>
+        </PersistGate>
       </Provider>,
     );
 

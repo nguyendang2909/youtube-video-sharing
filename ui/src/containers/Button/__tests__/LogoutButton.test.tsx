@@ -4,9 +4,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { appActions } from 'store/app.store';
 
-import { store as appStore } from '../../../store';
+import { persistor, store as appStore } from '../../../store';
 import { LogoutButton } from '../LogoutButton';
 
 describe('#LogoutButton', () => {
@@ -37,7 +38,9 @@ describe('#LogoutButton', () => {
 
     render(
       <Provider store={store}>
-        <LogoutButton />
+        <PersistGate loading={null} persistor={persistor}>
+          <LogoutButton />
+        </PersistGate>
       </Provider>,
     );
 
@@ -56,7 +59,9 @@ describe('#LogoutButton', () => {
     });
     render(
       <Provider store={store}>
-        <LogoutButton />
+        <PersistGate loading={null} persistor={persistor}>
+          <LogoutButton />
+        </PersistGate>
       </Provider>,
     );
     const logoutButton = screen.getByText('Logout');

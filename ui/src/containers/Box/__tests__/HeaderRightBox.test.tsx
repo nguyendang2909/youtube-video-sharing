@@ -4,9 +4,10 @@ import { render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 import { appActions } from 'store/app.store';
 
-import { store as appStore } from '../../../store';
+import { persistor, store as appStore } from '../../../store';
 import { HeaderRightBox } from '../HeaderRightBox';
 
 describe('#HeaderRightBox', () => {
@@ -27,7 +28,9 @@ describe('#HeaderRightBox', () => {
   it('Should show user box when user logged in', async () => {
     render(
       <Provider store={store}>
-        <HeaderRightBox />
+        <PersistGate loading={null} persistor={persistor}>
+          <HeaderRightBox />
+        </PersistGate>
       </Provider>,
     );
     act(() => {
@@ -44,7 +47,9 @@ describe('#HeaderRightBox', () => {
   it('Should show sign in box when user not logged in or log out', async () => {
     render(
       <Provider store={store}>
-        <HeaderRightBox />
+        <PersistGate loading={null} persistor={persistor}>
+          <HeaderRightBox />
+        </PersistGate>
       </Provider>,
     );
 
