@@ -2,7 +2,7 @@ FROM node:18
 
 WORKDIR /usr/src/app
 
-COPY ./-ui ./
+COPY ./ui ./
 
 RUN yarn \
     && yarn build
