@@ -16,3 +16,21 @@ docker-compose -f deployment.yml up -d
 ```
 http://localhost:3000
 ```
+
+## Test
+# UI
+```
+cd api
+yarn install
+yarn test
+yarn test:coverage
+```
+# API
+```
+cd api
+yarn install
+yarn test
+yarn test:coverage
+```
+
+## Test
