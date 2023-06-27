@@ -1,6 +1,5 @@
 FROM node:18
 
-# Create app directory
 WORKDIR /usr/src/app
 
 COPY ./-ui ./
@@ -8,7 +7,6 @@ COPY ./-ui ./
 RUN yarn \
     && yarn build
 
-EXPOSE 8330
-
+EXPOSE 3000
 
 CMD ["yarn", "prod"]

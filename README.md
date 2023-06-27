@@ -18,14 +18,14 @@ http://localhost:3000
 ```
 
 ## Test
-# UI
+UI
 ```
 cd api
 yarn install
 yarn test
 yarn test:coverage
 ```
-# API
+API
 ```
 cd api
 yarn install
