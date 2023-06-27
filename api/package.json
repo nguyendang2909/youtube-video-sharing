@@ -23,7 +23,7 @@
     "migrate:rollback": "knex --knexfile ./knexfile.ts migrate:rollback",
     "migrate:redo": "yarn migrate:rollback && yarn migrate:latest",
     "migrate:make": "knex --knexfile ./knexfile.ts migrate:make -x ts",
-    "lint:fix": "eslint --fix --ext ts .",
+    "lint:fix": "eslint --fix --ext ts ."
   },
   "dependencies": {
     "@joi/date": "^2.1.0",
