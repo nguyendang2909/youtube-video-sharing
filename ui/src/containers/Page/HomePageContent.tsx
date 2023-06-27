@@ -7,7 +7,7 @@ export const HomePageContent: React.FC = () => {
   const ytSharedVideos = useAppSelector(state => state.ytSharedVideo.data);
 
   return (
-    <Box mt={4}>
+    <Box mt={4} data-testid="sharedVideoContent">
       <Container>
         <Box className="flex gap-6 flex-col">
           {ytSharedVideos.map(item => {

@@ -1,4 +1,4 @@
-import { HomePageContent } from 'containers/Page/HomagePageContent';
+import { HomePageContent } from 'containers/Page/HomePageContent';
 import { PageHeader } from 'containers/Page/PageHeader';
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';

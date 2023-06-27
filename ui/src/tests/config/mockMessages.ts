@@ -57,3 +57,24 @@ export const mockMessages = {
     },
   ],
 };
+
+export const mockShareVideo = {
+  type: 'ytSharedVideos',
+  data: {
+    id: '1bfeeb6c-4491-4b79-bd84-5540aa2798bc',
+    createdAt: '2023-06-25T23:08:30.562Z',
+    url: 'https://www.youtube.com/watch?v=dV4KSvwl1ek',
+    videoId: 'dV4KSvwl1ek',
+    title: 'VnTimes',
+    viewCount: 108328,
+    likeCount: 354,
+    favoriteCount: 0,
+    commentCount: 0,
+    description:
+      'VietTimes | Liên quan đến vụ tàu Titan phát nổ trong chuyến thám hiểm xác Titanic được nhiều người phát hiện ra vụ nổ này gần giống với một tập phim trong series phim “The Simpson”. Nhà sản xuất bộ phim hoạt hình đình đám sau đó đã lên tiếng về sự trùng khớp đáng sợ tới ám ảnh và những trục trặc trong 3 lần ông ngồi trên tàu Titan. Vợ của nhà sản xuất bộ phim hoạt hình này còn thốt lên rằng: “Thật kỳ lạ vì nhân vật của Gia đình Simpson thậm chí còn ngủ gật trên tàu ngầm, giống như Mike đã ngủ trên đường xuống.”\n\n🔔 Đăng ký kênh để theo dõi tin tức mới nhất: https://bit.ly/DangKyKenhVietTimes\n\nTheo dõi Tạp chí điện tử Viettimes\n\n📣 Web: https://viettimes.vn/\n📣 Tiktok: https://www.tiktok.com/@viettimes.vn\n📣 Youtube Channel: https://www.youtube.com/c/TapchiVietTimes/featured\n📣 Fanpage: https://www.facebook.com/viettimes.vn\n-----------------\n© Bản quyền thuộc về Tạp chí điện tử Viettimes\n© Copyright by Bao Viettimes  ☞ Do not Reup\n#trungkhopvutautitan #tiendoantautitan #tautitanphatno',
+    user: {
+      id: 'b58cae8b-cb27-49d5-8071-53479df19ca8',
+      email: 'quynhanh290991@gmail.com',
+    },
+  },
+};

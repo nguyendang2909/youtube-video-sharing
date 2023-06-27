@@ -9,7 +9,7 @@ export const PageHeader: React.FC = () => {
       <AppBar position="static">
         <Toolbar className="h-20" />
       </AppBar>
-      <AppBar position="fixed" color="inherit">
+      <AppBar position="fixed" color="inherit" data-testid="appBar">
         <Toolbar className="h-20">
           <Container>
             <Box className="flex">
@@ -18,7 +18,9 @@ export const PageHeader: React.FC = () => {
                   <Home fontSize="inherit" color="info" />
                 </Box>
                 <Box className="flex items-center">
-                  <Typography variant="h5">Funny Movies</Typography>
+                  <Typography variant="h5" data-testid="appTitle">
+                    Funny Movies
+                  </Typography>
                 </Box>
               </Box>
               <Box className="grow"></Box>

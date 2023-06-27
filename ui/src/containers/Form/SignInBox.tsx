@@ -44,7 +44,7 @@ export const SignInBox: React.FC = () => {
       password: '',
     },
     validationSchema: Yup.object().shape({
-      email: Yup.string().email().required(),
+      email: Yup.string().email('Please input correct email').required(),
       password: Yup.string().min(8, 'At least 8 characters').required(),
     }),
     onSubmit: async values => {
@@ -147,7 +147,9 @@ export const SignInBox: React.FC = () => {
                 placeholder="Email"
                 type="email"
                 helperText={
-                  <span className="absolute">{formik.errors.email || ' '}</span>
+                  <span className="absolute" data-testid="emailInputError">
+                    {formik.errors.email || ' '}
+                  </span>
                 }
               />
             </Box>
@@ -162,7 +164,7 @@ export const SignInBox: React.FC = () => {
                 placeholder="Password"
                 type="password"
                 helperText={
-                  <span className="absolute">
+                  <span className="absolute" data-testid="passwordInputError">
                     {formik.errors.password || ' '}
                   </span>
                 }

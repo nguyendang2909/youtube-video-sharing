@@ -1,12 +1,6 @@
 import '@testing-library/jest-dom';
 
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { App } from 'App';
 import { rest } from 'msw';
@@ -17,7 +11,7 @@ import socketIOClient from 'socket.io-client';
 import MockedSocket from 'socket.io-mock';
 
 import { store as appStore } from '../store';
-import { mockMessages } from '../tests/config/mockMessages';
+import { mockMessages, mockShareVideo } from '../tests/config/mockMessages';
 import { server } from '../tests/config/server';
 
 jest.mock('socket.io-client');
@@ -100,8 +94,10 @@ describe('#App', () => {
       rest.get('/messages', (req, res, ctx) => {
         return res(ctx.json(mockMessages));
       }),
+      rest.post('/messages', (req, res, ctx) => {
+        return res(ctx.json(mockShareVideo));
+      }),
     );
-
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
@@ -119,30 +115,20 @@ describe('#App', () => {
       </Provider>,
     );
 
-    const inputEmailElement = await screen.findByTestId('emailInputDesktop');
-    const inputPasswordElement = await screen.findByTestId(
-      'passwordInputDesktop',
-    );
-    const signInButtonElement = await screen.findByTestId(
-      'signInButtonDesktop',
-    );
-
     expect((await screen.findAllByTestId('videoBox')).length).toEqual(
       mockMessages.data.length,
     );
 
-    act(() => {
-      fireEvent.change(inputEmailElement, {
-        target: {
-          value: 'quynh@gmail.com',
-        },
-      });
-      fireEvent.change(inputPasswordElement, {
-        target: {
-          value: '12345678',
-        },
-      });
-      fireEvent.click(signInButtonElement);
+    await act(async () => {
+      await userEvent.type(
+        await screen.findByTestId('emailInputDesktop'),
+        'quynh@gmail.com',
+      );
+      await userEvent.type(
+        await screen.findByTestId('passwordInputDesktop'),
+        '12345678',
+      );
+      await userEvent.click(await screen.findByTestId('signInButtonDesktop'));
     });
 
     await waitFor(() => {
@@ -151,12 +137,27 @@ describe('#App', () => {
       expect(screen.getByTestId('shareLinkDesktop')).toBeInTheDocument();
       expect(screen.getByTestId('welcomeText')).toBeInTheDocument();
     });
-
     await userEvent.click(await screen.findByTestId('shareLinkDesktop'));
-    await userEvent.type(
-      await screen.findByTestId('youtubeVideoUrlInput'),
-      'https://www.youtube.com/watch?v=yoYv_ezmvqI&ab_channel=Ho%C3%A0ngD%C5%A9ng',
-    );
-    await userEvent.click(await screen.findByTestId('youtubeVideoUrlInput'));
+
+    await waitFor(() => {
+      expect(screen.getByTestId('youtubeVideoUrlInput')).toBeInTheDocument();
+    });
+
+    await act(async () => {
+      await userEvent.type(
+        await screen.findByTestId('youtubeVideoUrlInput'),
+        'https://www.youtube.com/watch?v=yoYv_ezmvqI&ab_channel=Ho%C3%A0ngD%C5%A9ng',
+      );
+      await userEvent.click(await screen.findByTestId('shareYtVideoButton'));
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('Share video successfully')).toBeInTheDocument();
+    });
+  });
+
+  beforeAll(() => {
+    jest.spyOn(console, 'error').mockImplementation(() => {});
+    jest.spyOn(console, 'warn').mockImplementation(() => {});
   });
 });

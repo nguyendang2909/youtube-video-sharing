@@ -46,7 +46,7 @@ export const ShareYtVideoPageContent: React.FC = () => {
       <Container>
         <Box className="flex justify-center">
           <Card className="w-full sm:max-w-[700px]">
-            <CardHeader title="Share a Youtube movie">adsas</CardHeader>
+            <CardHeader title="Share a Youtube movie"></CardHeader>
             <CardContent>
               <form noValidate onSubmit={formik.handleSubmit}>
                 <TextField
@@ -60,7 +60,11 @@ export const ShareYtVideoPageContent: React.FC = () => {
                   type="text"
                   fullWidth
                   variant="outlined"
-                  helperText={formik.errors.url || ' '}
+                  helperText={
+                    <span data-testid="urlInputError">
+                      {formik.errors.url || ' '}
+                    </span>
+                  }
                 />
 
                 <Button

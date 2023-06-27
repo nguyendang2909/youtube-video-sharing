@@ -18,19 +18,11 @@ function setupSocketIo(token: string) {
 
 function createSocketChannel() {
   return eventChannel(emit => {
-    socket.on('connect', () => {
-      console.log('socket connected', socket.connected);
-    });
     socket.on('message', (msg: YtSharedVideo) => {
       emit({ type: 'message', data: msg });
     });
-    socket.on('disconnect', () => {
-      console.log('socket disconnected', socket.disconnected);
-    });
     const unsubscribe = () => {
       socket.off('message');
-      socket.off('disconnect');
-      socket.off('connect');
     };
 
     return unsubscribe;

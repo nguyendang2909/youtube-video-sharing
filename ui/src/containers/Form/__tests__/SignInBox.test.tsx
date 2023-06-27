@@ -7,10 +7,8 @@ import {
   screen,
   waitFor,
 } from '@testing-library/react';
-import { rest } from 'msw';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { server } from 'tests/config/server';
 
 import { store as appStore } from '../../../store';
 import { SignInBox } from '../SignInBox';
@@ -50,23 +48,7 @@ describe('#SignInBox', () => {
     expect(screen.getByTestId('signInButtonDesktop')).toBeInTheDocument();
   });
 
-  it('Should login successfully', async () => {
-    server.use(
-      rest.post('/auth/sign-in', (req, res, ctx) => {
-        return res(
-          ctx.json({
-            type: 'signIn',
-            data: {
-              accessToken: 'access-token',
-              profile: {
-                id: 'user123',
-                email: 'quynh@gmail.com',
-              },
-            },
-          }),
-        );
-      }),
-    );
+  it('Should show an error when type incorrect password', async () => {
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
       value: jest.fn().mockImplementation(query => ({
@@ -93,13 +75,54 @@ describe('#SignInBox', () => {
         target: { value: 'quynh@gmail.com' },
       });
       fireEvent.change(inputPasswordElement, {
-        target: { value: 'quynh@gmail.com' },
+        target: { value: '12345' },
       });
       fireEvent.click(signInButtonElement);
     });
 
     await waitFor(() => {
-      expect(store.getState().app.accessToken).toBe('access-token');
+      expect(screen.getByTestId('passwordInputError').textContent).toBe(
+        'At least 8 characters',
+      );
+    });
+  });
+
+  it('Should show an error when type incorrect email', async () => {
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation(query => ({
+        matches: !(query === '(max-width: 599px)'),
+        addListener: jest.fn(),
+        removeListener: jest.fn(),
+      })),
+    });
+    render(
+      <Provider store={store}>
+        <SignInBox />
+      </Provider>,
+    );
+    const inputEmailElement = await screen.findByTestId('emailInputDesktop');
+    const inputPasswordElement = await screen.findByTestId(
+      'passwordInputDesktop',
+    );
+    const signInButtonElement = await screen.findByTestId(
+      'signInButtonDesktop',
+    );
+
+    await act(async () => {
+      fireEvent.change(inputEmailElement, {
+        target: { value: 'quynh' },
+      });
+      fireEvent.change(inputPasswordElement, {
+        target: { value: '12345678' },
+      });
+      fireEvent.click(signInButtonElement);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByTestId('emailInputError').textContent).toBe(
+        'Please input correct email',
+      );
     });
   });
 });
