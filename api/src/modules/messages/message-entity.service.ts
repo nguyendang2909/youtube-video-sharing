@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindManyOptions, FindOneOptions, Repository } from 'typeorm';
+import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { Message } from './entities/message.entity';
 
@@ -21,5 +22,12 @@ export class MessageEntity {
 
   public async find(options?: FindManyOptions<Message>) {
     return await this.messageRepository.find(options);
+  }
+
+  public async updateOneById(
+    id: string,
+    options: QueryDeepPartialEntity<Message>,
+  ) {
+    return await this.messageRepository.update({ id }, options);
   }
 }

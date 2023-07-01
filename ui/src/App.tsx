@@ -4,19 +4,12 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { api } from 'services/api';
 import { GlobalStyle } from 'styles/global-styles';
 
 import { HomePage } from './pages/HomePage';
 import { ShareYtVideoPage } from './pages/ShareYtVideoPage';
 
 export function App() {
-  api.useGetSharedVideosQuery(undefined, {
-    refetchOnMountOrArgChange: false,
-    refetchOnFocus: false,
-    refetchOnReconnect: false,
-  });
-
   return (
     <BrowserRouter>
       <Helmet
