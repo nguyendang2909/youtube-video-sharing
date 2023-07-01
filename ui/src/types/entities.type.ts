@@ -6,7 +6,7 @@ export type User = {
 };
 
 export type YtSharedVideo = {
-  id?: string;
+  id: string;
   user?: User;
   url?: string;
   videoId?: string;
