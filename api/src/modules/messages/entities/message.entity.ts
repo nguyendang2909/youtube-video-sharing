@@ -5,7 +5,7 @@ import { User } from '../../users/entities/user.entity';
 
 @Entity()
 export class Message extends CommonEntity {
-  @ManyToOne(() => User, { nullable: true })
+  @ManyToOne(() => User, { nullable: false })
   @JoinColumn({ name: 'user_id' })
   user?: User;
 
