@@ -32,4 +32,10 @@ export class Message extends CommonEntity {
 
   @Column({ name: 'description', type: 'text', nullable: true })
   description?: string;
+
+  constructor(obj: Partial<Message>) {
+    super();
+
+    Object.assign(this, obj);
+  }
 }
